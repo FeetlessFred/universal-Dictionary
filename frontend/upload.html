@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Upload Post</title>
-</head>
 <body>
 
 <h1>Upload Post</h1>
@@ -16,39 +13,28 @@
 <input type="text" id="caption" placeholder="Caption">
 <br><br>
 
-<button onclick="uploadPost()">Upload</button>
+<button onclick="upload()">Upload</button>
 
 <script>
-async function uploadPost() {
-
-  const image = document.getElementById("image").files[0];
-  const caption = document.getElementById("caption").value;
-  const username = document.getElementById("username").value;
-
-  const token = localStorage.getItem("token");
+async function upload() {
 
   const formData = new FormData();
 
-  formData.append("image", image);
-  formData.append("caption", caption);
-  formData.append("username", username);
+  formData.append("username", username.value);
+  formData.append("caption", caption.value);
+  formData.append("image", image.files[0]);
 
-  const res = await fetch(
-    "https://terrace-tube.onrender.com/api/posts",
-    {
-      method: "POST",
-      headers: {
-        "x-auth-token": token
-      },
-      body: formData
-    }
-  );
+  const token = localStorage.getItem("token");
 
-  const data = await res.json();
+  await fetch("https://terrace-tube.onrender.com/api/posts", {
+    method: "POST",
+    headers: {
+      "x-auth-token": token
+    },
+    body: formData
+  });
 
-  console.log(data);
-
-  alert("Post uploaded!");
+  alert("Uploaded!");
 }
 </script>
 
