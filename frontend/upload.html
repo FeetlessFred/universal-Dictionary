@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Upload</title>
+  <title>Upload Post</title>
 </head>
 <body>
 
 <h1>Upload Post</h1>
+
+<input type="text" id="username" placeholder="Username">
+<br><br>
 
 <input type="file" id="image">
 <br><br>
@@ -17,7 +20,35 @@
 
 <script>
 async function uploadPost() {
-  alert("Upload feature coming next");
+
+  const image = document.getElementById("image").files[0];
+  const caption = document.getElementById("caption").value;
+  const username = document.getElementById("username").value;
+
+  const token = localStorage.getItem("token");
+
+  const formData = new FormData();
+
+  formData.append("image", image);
+  formData.append("caption", caption);
+  formData.append("username", username);
+
+  const res = await fetch(
+    "https://terrace-tube.onrender.com/api/posts",
+    {
+      method: "POST",
+      headers: {
+        "x-auth-token": token
+      },
+      body: formData
+    }
+  );
+
+  const data = await res.json();
+
+  console.log(data);
+
+  alert("Post uploaded!");
 }
 </script>
 
