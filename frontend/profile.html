@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile</title>
+</head>
+<body>
+
+<h1>My Profile</h1>
+
+<input id="bio" placeholder="Your bio">
+<button onclick="saveProfile()">Save</button>
+
+<script>
+async function saveProfile() {
+  const bio = document.getElementById("bio").value;
+
+  alert("Profile updated!");
+}
+</script>
+
+</body>
+</html>
